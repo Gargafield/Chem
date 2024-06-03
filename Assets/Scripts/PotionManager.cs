@@ -9,9 +9,8 @@ public class PotionManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void AddElement(ElementObject element) {
+        // Add the element to the potion
+        Debug.Log("Added element " + element.FullName);
     }
 }
