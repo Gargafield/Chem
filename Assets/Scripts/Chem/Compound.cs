@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -29,11 +30,17 @@ public class Compound : IElement
         return name;
     }
     public string GetSymbol(bool richText = false) {
-        var counted = Elements.GroupBy(e => e.Symbol).Select(g => new { Symbol = g.Key, Count = g.Count() });
+        var elements = Charge == 0 ? Elements.OrderBy(e => e.AtomicWeight) : Elements.AsEnumerable();
+
+        var counted = elements.GroupBy(e => e is Compound compound ? compound.GetSymbol(richText) : e.Symbol)
+        .Select(g => new { Symbol = g.Key, Count = g.Count() });
         var symbol = string.Join("", counted.Select(c => {
             var count = richText ? $"<sub>{c.Count}</sub>" : c.Count.ToString();
             return c.Count > 1 ? c.Symbol + count : c.Symbol;
         }));
+
+        // var charge = richText ? (Charge != 0 ? $"<sup>{Charge}</sup>" : "") : "";
+        // return symbol + charge;
         return symbol;
     }
     public int GetCharge() {

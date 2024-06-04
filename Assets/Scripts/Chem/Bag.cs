@@ -20,7 +20,7 @@ public class Bag
         Elements.Clear();
     }
 
-    public List<Reaction> CalculateReactions() {
+    public Reaction CalculateReactions() {
         var ordered = Elements.OrderBy(e => e.AtomicNumber);
         var metals = ordered.Where(e => e.IsMetal).GroupBy(e => e.FullName).Select(g => new Compound() {
             Elements = g.ToList<IElement>()
@@ -29,7 +29,6 @@ public class Bag
         
         var suffixes = CalculateSuffixes(nonMetals);
         
-        var reactions = new List<Reaction>();
         var reaction = new Reaction();
 
         foreach (var metal in metals) {
@@ -40,22 +39,13 @@ public class Bag
                 suffixes.Remove(suffix);
                 reaction.AddElement(suffix);
             }
-
-            if (reaction.Charge == 0) {
-                reactions.Add(reaction);
-                reaction = new Reaction();
-            }
         }
 
         foreach (var suffix in suffixes) {
             reaction.AddElement(suffix);
         }
 
-        if (reaction.Elements.Count > 0) {
-            reactions.Add(reaction);
-        }
-
-        return reactions;
+        return reaction;
     }
 
     private List<Compound> CalculateSuffixes(List<Element> nonMetals)
