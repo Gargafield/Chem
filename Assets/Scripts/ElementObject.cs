@@ -8,4 +8,10 @@ public class ElementObject : ScriptableObject
     public int AtomicNumber;
     public double AtomicWeight;
     public int Charge;
+    public bool IsMetal;
+
+    public Element GetElement()
+    {
+        return new Element(FullName, Symbol, AtomicNumber, AtomicWeight, Charge, IsMetal);
+    }
 }

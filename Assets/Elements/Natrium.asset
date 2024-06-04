@@ -17,3 +17,4 @@ MonoBehaviour:
   AtomicNumber: 11
   AtomicWeight: 22.99
   Charge: 1
+  IsMetal: 1

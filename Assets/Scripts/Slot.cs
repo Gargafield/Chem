@@ -15,12 +15,8 @@ public class Slot : MonoBehaviour
         Prefab.SetActive(false);
         
         Ingredient = Instantiate(Prefab, Vector3.zero, Quaternion.identity);
-        Debug.Log("Ingredient created");
         Ingredient.transform.SetParent(transform);
-        Debug.Log("Ingredient parented");
-        
         Ingredient.SetActive(true);
-        Debug.Log("Ingredient activated");
     }
 
     void Update() {
